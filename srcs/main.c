@@ -19,11 +19,29 @@ void	print_nbr(int num, char fmt)
 		ft_putnbr_base(num, cap_hex_base, ft_strlen(cap_hex_base));
 }
 
+void	print_ptr(void *ptr, char fmt)
+{
+	char				*hex_base;
+	// unsigned int		ptr_size;
+	unsigned long		num;
+
+	// ptr_size = sizeof(ptr);
+	num = (unsigned long)ptr;
+	hex_base = "0123456789abcdef";
+	if (fmt == 'p')
+	{
+		ft_putstr("0x");
+		ft_putptr_base(num, hex_base, ft_strlen(hex_base));
+	}
+}
+
 int ft_printf(const char *fmt, ...)
 {
 	va_list	ap;
 	t_fmt	var;
+	// char	*flags;
 
+	// flags = "-+.0# ";
 	va_start(ap, fmt);
 	while (*fmt)
 	{
@@ -46,6 +64,11 @@ int ft_printf(const char *fmt, ...)
 				var.c = va_arg(ap, int);
 				ft_putchar(var.c);
 			}
+			if (*fmt == 'p')
+			{
+				var.ptr = va_arg(ap, void *);
+				print_ptr(var.ptr, *fmt);
+			}
 		}
 		else 
 			ft_putchar(*fmt);
@@ -57,10 +80,12 @@ int ft_printf(const char *fmt, ...)
 
 int main(void)
 {
-	int a = 1500;
+	int a = 160;
 	// int	*b = &a;
-	ft_printf("%s %d %c\n", "world", a, 'a');
-	// printf("%lu %x\n", sizeof(b), a);
+	printf("----------ft_printf--------------\n");
+	ft_printf("%% %s %u %c %p %x\n", "world", a, 'a', &a, a);
+	printf("-----------printf---------------\n");
+	printf("%% %.2s %+10i %c %p %#.10x\n", "world", a, 'a', &a, a);
 	// ft_putstr("Hello world");
 	return (0);
 }

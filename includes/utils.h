@@ -15,5 +15,6 @@ void	ft_putnbr_base(int nbr, char *base, unsigned int base_len);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
 int		ft_strlen(char *str);
+void	ft_putptr_base(unsigned long int nbr, char *base, unsigned int base_len);
 
 #endif

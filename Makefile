@@ -1,0 +1,37 @@
+SRC_DIR = srcs
+HDR_DIR = includes
+
+FLAGS = -Wall -Wextra -Werror
+CC = cc
+
+MY_SRCS = main.c\
+		write_nbr1.c\
+		write_str1.c\
+		write_adds1.c
+
+SRCS = $(addprefix $(SRC_DIR)/, $(MY_SRCS))
+OBJS = $(SRCS:.c=.o)
+# NAME = libftprintf.a
+NAME = a.out
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+# 	ar rcs $(NAME) $(OBJS)
+	$(CC) $(FLAGS) -I$(HDR_DIR) $(OBJS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(FLAGS) -I$(HDR_DIR) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+output: all
+	$(addprefix ./, $(NAME))
+
+.PHONY: all clean fclean
