@@ -7,38 +7,48 @@
 #include <stdio.h>
 
 typedef unsigned int	t_uint;
+typedef unsigned int	t_bool;
 
-typedef struct s_fmt
+typedef struct	s_fmt
 {
-	int		i;
-	t_uint	u;
+	int		num;
+	t_uint	unum;
 	char	c;
 	char	*str;
 	void	*ptr;
 }				t_fmt;
 
-typedef struct	s_flags
+typedef struct	s_str
 {
-	char	*flags;
+	char	*str;
 	t_uint	len;
-	t_uint	cap;
-}				t_flags;
+	t_uint	size;
+}				t_str;
 
 typedef struct	s_fmt_specifier
 {
-	t_flags	flag_dtls;
+	t_str	flag_dtls;
 	char	specifier;
+	t_bool	flags;
+	t_bool	dot;
 	t_uint	width;
 	t_uint	precision;
-	t_uint	var_len;
-	t_fmt	var_val;
+	t_str	var;
 }				t_fmt_specifier;
 
-void	ft_putnbr_base(int nbr, char *base, t_uint base_len);
+void	ft_putnbr_base(int nbr, char *base, unsigned int base_len);
+void	ft_putptr_base(unsigned long nbr, char *base, unsigned int base_len);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
 int		ft_strlen(char *str);
-void	ft_putptr_base(unsigned long int nbr, char *base, t_uint base_len);
-int 	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i);
+void 	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i);
+void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap);
+void	print_nbr(int num, char fmt);
+void	print_ptr(void *ptr, char fmt);
+void	append_char(t_str *str_dtls, char c);
+char	*ft_strdup(char *src, char *dst);
+void	print_str(t_fmt_specifier *fmt_spcfr, char *str);
+int		char_in_str(char c, char *str);
+void	ft_putstr_len(char *str, t_uint len);
 
 #endif

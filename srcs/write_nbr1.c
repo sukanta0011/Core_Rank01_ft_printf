@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include "ft_printf.h"
 
 void	ft_putnbr_base(int nbr, char *base, unsigned int base_len)
 {
@@ -16,4 +16,21 @@ void	ft_putnbr_base(int nbr, char *base, unsigned int base_len)
 		ft_putnbr_base(new_nb / base_len, base, base_len);
 	mod = new_nb % base_len;
 	write (1, &base[mod], 1);
+}
+
+void	print_nbr(int num, char fmt)
+{
+	char	*cap_hex_base;
+	char	*hex_base;
+	char	*dec_base;
+
+	cap_hex_base = "0123456789ABCDEF";
+	hex_base = "0123456789abcdef";
+	dec_base = "0123456789";
+	if (fmt == 'd' || fmt == 'i' || fmt == 'u')
+		ft_putnbr_base(num, dec_base, ft_strlen(dec_base));
+	if (fmt == 'x')
+		ft_putnbr_base(num, hex_base, ft_strlen(hex_base));
+	if (fmt == 'X')
+		ft_putnbr_base(num, cap_hex_base, ft_strlen(cap_hex_base));
 }

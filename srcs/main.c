@@ -1,45 +1,37 @@
 #include "ft_printf.h"
 
-void	print_nbr(int num, char fmt)
+t_fmt_specifier *initialize_mem(t_fmt_specifier *fmt_spcfr)
 {
-	char	*cap_hex_base;
-	char	*hex_base;
-	char	*dec_base;
-
-	cap_hex_base = "0123456789ABCDEF";
-	hex_base = "0123456789abcdef";
-	dec_base = "0123456789";
-	if (fmt == 'd' || fmt == 'i' || fmt == 'u')
-		ft_putnbr_base(num, dec_base, ft_strlen(dec_base));
-	if (fmt == 'x')
-		ft_putnbr_base(num, hex_base, ft_strlen(hex_base));
-	if (fmt == 'X')
-		ft_putnbr_base(num, cap_hex_base, ft_strlen(cap_hex_base));
+	fmt_spcfr = malloc(sizeof(t_fmt_specifier));
+	fmt_spcfr->flag_dtls.str = NULL;
+	fmt_spcfr->flag_dtls.len = 0;
+	fmt_spcfr->flag_dtls.size = 2;
+	fmt_spcfr->flags = 0;
+	fmt_spcfr->dot = 0;
+	fmt_spcfr->width = 0;
+	fmt_spcfr->precision = 0;
+	fmt_spcfr->specifier = 0;
+	fmt_spcfr->var.str = NULL;
+	fmt_spcfr->var.len = 0;
+	fmt_spcfr->var.size = 2;
+	return (fmt_spcfr);
 }
 
-void	print_ptr(void *ptr, char fmt)
+void free_memory(t_fmt_specifier *fmt_spcfr)
 {
-	char				*hex_base;
-	// unsigned int		ptr_size;
-	unsigned long		num;
-
-	// ptr_size = sizeof(ptr);
-	num = (unsigned long)ptr;
-	hex_base = "0123456789abcdef";
-	if (fmt == 'p')
-	{
-		ft_putstr("0x");
-		ft_putptr_base(num, hex_base, ft_strlen(hex_base));
-	}
+	if (fmt_spcfr->flag_dtls.str)
+		free(fmt_spcfr->flag_dtls.str);
+	if (fmt_spcfr->var.str)
+		free(fmt_spcfr->var.str);
+	free(fmt_spcfr);
 }
 
 int ft_printf(const char *fmt, ...)
 {
 	va_list			ap;
 	t_fmt_specifier	*fmt_spcfr;
-	unsigned int	i;
+	t_uint			i;
 
-	fmt_spcfr = malloc(sizeof(t_fmt_specifier));
 	i = 0;
 	va_start(ap, fmt);
 	while (fmt[i])
@@ -47,69 +39,27 @@ int ft_printf(const char *fmt, ...)
 		if (fmt[i] == '%')
 		{
 			i++;
+			fmt_spcfr = initialize_mem(fmt_spcfr);
 			parse_specifier(fmt_spcfr, (char *)fmt, &i);
 			parse_specifier_value(fmt_spcfr, ap);
+			free_memory(fmt_spcfr);
 		}
 		else 
 			ft_putchar(fmt[i]);
 		i++;
 	}
 	va_end(ap);
-	if (fmt_spcfr->flag_dtls.flags)
-		free(fmt_spcfr->flag_dtls.flags);
-	free(fmt_spcfr);
 	return (0);
 }
 
-int old_ft_printf(const char *fmt, ...)
-{
-	va_list	ap;
-	t_fmt	var;
-
-	va_start(ap, fmt);
-	while (*fmt)
-	{
-		if (*fmt == '%')
-		{
-			fmt++;
-			if (*fmt == 's')
-			{
-				var.str = va_arg(ap, char *);
-				ft_putstr(var.str);
-			}
-			if (*fmt == 'd' || *fmt == 'i' || *fmt == 'u'
-					|| *fmt == 'x' || *fmt == 'X')
-			{
-				var.i = va_arg(ap, int);
-				print_nbr(var.i, *fmt);
-			}
-			if (*fmt == 'c')
-			{
-				var.c = va_arg(ap, int);
-				ft_putchar(var.c);
-			}
-			if (*fmt == 'p')
-			{
-				var.ptr = va_arg(ap, void *);
-				print_ptr(var.ptr, *fmt);
-			}
-		}
-		else 
-			ft_putchar(*fmt);
-		fmt++;
-	}
-	va_end(ap);
-	return (0);
-}
 
 int main(void)
 {
 	// int a = 160;
 	// int	*b = &a;
 	printf("----------ft_printf--------------\n");
-	ft_printf("%s\n", "world");
-	// printf("-----------printf---------------\n");
-	// printf("%% %.2s %+10i %c %p %#.10x\n", "world", a, 'a', &a, a);
-	// ft_putstr("Hello world");
+	ft_printf("%-10.1s, %10.1s\n", "Hello", "World");
+	printf("-----------printf---------------\n");
+	printf("%-10.1s, %10.1s\n", "Hello", "World");
 	return (0);
 }
