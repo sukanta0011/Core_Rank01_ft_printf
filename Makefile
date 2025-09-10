@@ -7,7 +7,9 @@ CC = cc
 MY_SRCS = main.c\
 		write_nbr1.c\
 		write_str1.c\
-		write_adds1.c
+		write_adds1.c\
+		utils.c\
+		parser.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(MY_SRCS))
 OBJS = $(SRCS:.c=.o)
@@ -31,7 +33,13 @@ fclean: clean
 
 re: fclean all
 
-output: all
+out: all
 	$(addprefix ./, $(NAME))
 
-.PHONY: all clean fclean
+norm:
+	norminette
+
+leak: all
+	valgrind --leak-check=full $(addprefix ./, $(NAME))
+
+.PHONY: all clean fclean out norm

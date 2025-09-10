@@ -1,6 +1,4 @@
-#include <stdarg.h>
-#include <stdio.h>
-#include "utils.h"
+#include "ft_printf.h"
 
 void	print_nbr(int num, char fmt)
 {
@@ -37,11 +35,36 @@ void	print_ptr(void *ptr, char fmt)
 
 int ft_printf(const char *fmt, ...)
 {
+	va_list			ap;
+	t_fmt_specifier	*fmt_spcfr;
+	unsigned int	i;
+
+	fmt_spcfr = malloc(sizeof(t_fmt_specifier));
+	i = 0;
+	va_start(ap, fmt);
+	while (fmt[i])
+	{
+		if (fmt[i] == '%')
+		{
+			i++;
+			parse_specifier(fmt_spcfr, (char *)fmt, &i);
+		}
+		else 
+			ft_putchar(fmt[i]);
+		i++;
+	}
+	va_end(ap);
+	if (fmt_spcfr->flag_dtls.flags)
+		free(fmt_spcfr->flag_dtls.flags);
+	free(fmt_spcfr);
+	return (0);
+}
+
+int old_ft_printf(const char *fmt, ...)
+{
 	va_list	ap;
 	t_fmt	var;
-	// char	*flags;
 
-	// flags = "-+.0# ";
 	va_start(ap, fmt);
 	while (*fmt)
 	{
@@ -80,12 +103,12 @@ int ft_printf(const char *fmt, ...)
 
 int main(void)
 {
-	int a = 160;
+	// int a = 160;
 	// int	*b = &a;
 	printf("----------ft_printf--------------\n");
-	ft_printf("%% %s %u %c %p %x\n", "world", a, 'a', &a, a);
-	printf("-----------printf---------------\n");
-	printf("%% %.2s %+10i %c %p %#.10x\n", "world", a, 'a', &a, a);
+	ft_printf("%s\n", "world");
+	// printf("-----------printf---------------\n");
+	// printf("%% %.2s %+10i %c %p %#.10x\n", "world", a, 'a', &a, a);
 	// ft_putstr("Hello world");
 	return (0);
 }
