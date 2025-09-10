@@ -48,6 +48,7 @@ int ft_printf(const char *fmt, ...)
 		{
 			i++;
 			parse_specifier(fmt_spcfr, (char *)fmt, &i);
+			parse_specifier_value(fmt_spcfr, ap);
 		}
 		else 
 			ft_putchar(fmt[i]);

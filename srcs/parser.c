@@ -14,7 +14,7 @@ char	*ft_strdup(char *src, char *dst)
 	return dst;
 }
 
-void	flags_append(t_flags *flag_dtls, char c)
+void	append_flags(t_flags *flag_dtls, char c)
 {
 	char	*temp;
 
@@ -55,12 +55,11 @@ int	is_in_flags(char c)
 	return (0);	
 }
 
-
-int parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i)
+void	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i)
 {
 	while(is_in_flags(fmt[*i]) && fmt[*i] != '\0')
 	{
-		flags_append(&(fmt_spcfr->flag_dtls), fmt[*i]);
+		append_flags(&(fmt_spcfr->flag_dtls), fmt[*i]);
 		(*i)++;
 	}
 	while((fmt[*i] >= '0' && fmt[*i] <= '9') && fmt[*i] != '\0')
@@ -78,5 +77,34 @@ int parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i)
 		}
 	}
 	fmt_spcfr->specifier = fmt[*i];
-	return (0);
+}
+
+void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap)
+{
+	if (fmt_spcfr->specifier == 's')
+	{
+		fmt_spcfr->var_val.str = va_arg(ap, char *);
+		fmt_spcfr->var_len = ft_strlen(fmt_spcfr->var_val.str)
+	}
+	if (fmt_spcfr->specifier == 'd' || fmt_spcfr->specifier == 'i' 
+		|| fmt_spcfr->specifier == 'x' || fmt_spcfr->specifier == 'X')
+	{
+		fmt_spcfr->var_val.num = va_arg(ap, int);
+		fmt_spcfr->var_len = ft_strlen(fmt_spcfr->var_val.str)
+	}
+	if (fmt_spcfr->specifier == 'u')
+	{
+		fmt_spcfr->var_val.unum = va_arg(ap, int);
+		fmt_spcfr->var_len = ft_strlen(fmt_spcfr->var_val.str)
+	}
+	if (fmt_spcfr->specifier == 'c')
+	{
+		fmt_spcfr->var_val.c = va_arg(ap, int);
+		fmt_spcfr->var_len = 1;
+	}
+	if (fmt_spcfr->specifier == 'p')
+	{
+		fmt_spcfr->var_val.ptr = va_arg(ap, void *);
+		fmt_spcfr->var_len = ft_strlen(fmt_spcfr->var_val.str)
+	}
 }

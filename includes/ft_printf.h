@@ -31,6 +31,7 @@ typedef struct	s_fmt_specifier
 	t_uint	width;
 	t_uint	precision;
 	t_uint	var_len;
+	t_fmt	var_val;
 }				t_fmt_specifier;
 
 void	ft_putnbr_base(int nbr, char *base, t_uint base_len);
