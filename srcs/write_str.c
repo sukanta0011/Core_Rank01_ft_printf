@@ -72,3 +72,15 @@ void	print_str(t_fmt_specifier *fmt_spcfr, char *str)
 	else
 		use_str_left_padding(fmt_spcfr, ' ');
 }
+
+void	print_char(t_fmt_specifier *fmt_spcfr, int c)
+{
+	append_char(&(fmt_spcfr->var), c);
+	if (fmt_spcfr->flags)
+	{
+		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
+			use_str_right_padding(fmt_spcfr, ' ');
+	}
+	else
+		use_str_left_padding(fmt_spcfr, ' ');
+}

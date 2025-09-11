@@ -124,6 +124,39 @@ void	ft_putnbr_base(t_fmt_specifier *fmt_spcfr, int nbr,
 
 void	print_nbr(t_fmt_specifier *fmt_spcfr, int num, char fmt)
 {
+	char	*dec_base;
+	t_uint	hx_len;
+	char	*hx_str;
+
+	hx_len = 0;
+	hx_str = "";
+	dec_base = "0123456789";
+	if (fmt == 'd' || fmt == 'i')
+		ft_putnbr_base(fmt_spcfr, num, dec_base, ft_strlen(dec_base));
+	if (fmt_spcfr->flags)
+	{
+		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
+			use_num_right_padding(fmt_spcfr, ' ', hx_len, hx_str);
+		else if (char_in_str('0', fmt_spcfr->flag_dtls.str))
+			use_num_left_padding(fmt_spcfr, '0', hx_len, hx_str);
+	}
+	else
+		use_num_left_padding(fmt_spcfr, ' ', hx_len, hx_str);
+}
+
+void	ft_putunbr_base(t_fmt_specifier *fmt_spcfr, t_uint nbr,
+		char *base, t_uint base_len)
+{
+	int		mod;
+
+	if (nbr > base_len - 1)
+		ft_putunbr_base(fmt_spcfr, nbr / base_len, base, base_len);
+	mod = nbr % base_len;
+	append_char(&(fmt_spcfr->var), base[mod]);
+}
+
+void	print_unbr(t_fmt_specifier *fmt_spcfr, t_uint num, char fmt)
+{
 	char	*cap_hex_base;
 	char	*hex_base;
 	char	*dec_base;
@@ -135,12 +168,12 @@ void	print_nbr(t_fmt_specifier *fmt_spcfr, int num, char fmt)
 	cap_hex_base = "0123456789ABCDEF";
 	hex_base = "0123456789abcdef";
 	dec_base = "0123456789";
-	if (fmt == 'd' || fmt == 'i' || fmt == 'u')
-		ft_putnbr_base(fmt_spcfr, num, dec_base, ft_strlen(dec_base));
+	if (fmt == 'u')
+		ft_putunbr_base(fmt_spcfr, num, dec_base, ft_strlen(dec_base));
 	if (fmt == 'x')
-		ft_putnbr_base(fmt_spcfr, num, hex_base, ft_strlen(hex_base));
+		ft_putunbr_base(fmt_spcfr, num, hex_base, ft_strlen(hex_base));
 	if (fmt == 'X')
-		ft_putnbr_base(fmt_spcfr, num, cap_hex_base, ft_strlen(cap_hex_base));
+		ft_putunbr_base(fmt_spcfr, num, cap_hex_base, ft_strlen(cap_hex_base));
 	if (fmt_spcfr->flags)
 	{
 		if (char_in_str('#', fmt_spcfr->flag_dtls.str))

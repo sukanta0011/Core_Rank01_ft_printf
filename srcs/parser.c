@@ -44,29 +44,30 @@ void	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i)
 void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap)
 {
 	t_fmt	var;
+	char	fmt;
 
-	if (fmt_spcfr->specifier == 's')
+	fmt = fmt_spcfr->specifier;
+	if (fmt == 's')
 	{
 		var.str = va_arg(ap, char *);
 		print_str(fmt_spcfr, var.str);
 	}
-	if (fmt_spcfr->specifier == 'd' || fmt_spcfr->specifier == 'i'
-		|| fmt_spcfr->specifier == 'x' || fmt_spcfr->specifier == 'X')
+	if (fmt == 'd' || fmt == 'i')
 	{
 		var.num = va_arg(ap, int);
 		print_nbr(fmt_spcfr, var.num, fmt_spcfr->specifier);
 	}
-	if (fmt_spcfr->specifier == 'u' )
+	if (fmt == 'u' || fmt == 'x' || fmt == 'X')
+	{
+		var.unum = va_arg(ap, t_uint);
+		print_unbr(fmt_spcfr, var.unum, fmt_spcfr->specifier);
+	}
+	if (fmt == 'c')
 	{
 		var.num = va_arg(ap, int);
-		print_nbr(fmt_spcfr, var.num, fmt_spcfr->specifier);
+		print_char(fmt_spcfr, var.num);
 	}
-	if (fmt_spcfr->specifier == 'c')
-	{
-		var.c = va_arg(ap, int);
-		ft_putchar(var.c);
-	}
-	if (fmt_spcfr->specifier == 'p')
+	if (fmt == 'p')
 	{
 		var.ptr = va_arg(ap, void *);
 		print_ptr(fmt_spcfr, var.ptr);

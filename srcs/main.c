@@ -66,11 +66,11 @@ int	ft_printf(const char *fmt, ...)
 
 int	main(void)
 {
-	int a = -294967295;
+	t_uint a = -294967295;
 	// int	*b = &a;
 	printf("-----------printf---------------\n");
-	printf("%-10c, %10.1s, %20u, %20p\n", 'c', "World", a, &a);
+	printf("%-10c, %10.1s, %20x, %20p\n", 'c', "World", a, &a);
 	printf("----------ft_printf--------------\n");
-	ft_printf("%-10c, %10.1s, %20u, %20p\n", 'c', "World", a, &a);
+	ft_printf("%-10c, %10.1s, %20x, %20p\n", 'c', "World", a, &a);
 	return (0);
 }
