@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sudas <sudas@student.42prague.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/11 09:55:09 by sudas             #+#    #+#             */
+/*   Updated: 2025/09/11 09:55:09 by sudas            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-t_fmt_specifier *initialize_mem(t_fmt_specifier *fmt_spcfr)
+t_fmt_specifier	*initialize_mem(t_fmt_specifier *fmt_spcfr)
 {
 	fmt_spcfr = malloc(sizeof(t_fmt_specifier));
 	fmt_spcfr->flag_dtls.str = NULL;
@@ -17,7 +29,7 @@ t_fmt_specifier *initialize_mem(t_fmt_specifier *fmt_spcfr)
 	return (fmt_spcfr);
 }
 
-void free_memory(t_fmt_specifier *fmt_spcfr)
+void	free_memory(t_fmt_specifier *fmt_spcfr)
 {
 	if (fmt_spcfr->flag_dtls.str)
 		free(fmt_spcfr->flag_dtls.str);
@@ -26,7 +38,7 @@ void free_memory(t_fmt_specifier *fmt_spcfr)
 	free(fmt_spcfr);
 }
 
-int ft_printf(const char *fmt, ...)
+int	ft_printf(const char *fmt, ...)
 {
 	va_list			ap;
 	t_fmt_specifier	*fmt_spcfr;
@@ -44,7 +56,7 @@ int ft_printf(const char *fmt, ...)
 			parse_specifier_value(fmt_spcfr, ap);
 			free_memory(fmt_spcfr);
 		}
-		else 
+		else
 			ft_putchar(fmt[i]);
 		i++;
 	}
@@ -52,8 +64,7 @@ int ft_printf(const char *fmt, ...)
 	return (0);
 }
 
-
-int main(void)
+int	main(void)
 {
 	// int a = 160;
 	// int	*b = &a;

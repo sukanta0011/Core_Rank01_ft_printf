@@ -36,10 +36,10 @@ re: fclean all
 out: all
 	$(addprefix ./, $(NAME))
 
-norm:
-	norminette
-
 leak: all
 	valgrind --leak-check=full $(addprefix ./, $(NAME))
 
-.PHONY: all clean fclean out norm
+norm:
+	norminette -R CheckDefine
+
+.PHONY: all clean fclean out norm leak

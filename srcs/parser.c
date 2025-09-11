@@ -1,18 +1,29 @@
-#include "ft_printf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sudas <sudas@student.42prague.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/11 09:55:13 by sudas             #+#    #+#             */
+/*   Updated: 2025/09/11 09:55:13 by sudas            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "ft_printf.h"
 
 void	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i)
 {
 	char	*flags;
-	
+
 	flags = "+-#0 ";
-	while(char_in_str(fmt[*i], flags) && fmt[*i] != '\0')
+	while (char_in_str(fmt[*i], flags) && fmt[*i] != '\0')
 	{
 		append_char(&(fmt_spcfr->flag_dtls), fmt[*i]);
 		fmt_spcfr->flags = 1;
 		(*i)++;
 	}
-	while((fmt[*i] >= '0' && fmt[*i] <= '9') && fmt[*i] != '\0')
+	while ((fmt[*i] >= '0' && fmt[*i] <= '9') && fmt[*i] != '\0')
 	{
 		fmt_spcfr->width = fmt_spcfr->width * 10 + fmt[*i] - '0';
 		(*i)++;
@@ -21,7 +32,7 @@ void	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i)
 	{
 		(*i)++;
 		fmt_spcfr->dot = 1;
-		while((fmt[*i] >= '0' && fmt[*i] <= '9') && fmt[*i] != '\0')
+		while ((fmt[*i] >= '0' && fmt[*i] <= '9') && fmt[*i] != '\0')
 		{
 			fmt_spcfr->precision = fmt_spcfr->precision * 10 + fmt[*i] - '0';
 			(*i)++;
@@ -39,7 +50,8 @@ void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap)
 		var.str = va_arg(ap, char *);
 		print_str(fmt_spcfr, var.str);
 	}
-	if (fmt_spcfr->specifier == 'd' || fmt_spcfr->specifier == 'i' || fmt_spcfr->specifier == 'u'
+	if (fmt_spcfr->specifier == 'd' || fmt_spcfr->specifier == 'i'
+		|| fmt_spcfr->specifier == 'u'
 		|| fmt_spcfr->specifier == 'x' || fmt_spcfr->specifier == 'X')
 	{
 		var.num = va_arg(ap, int);

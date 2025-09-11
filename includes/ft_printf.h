@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sudas <sudas@student.42prague.com>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/11 09:55:06 by sudas             #+#    #+#             */
+/*   Updated: 2025/09/11 09:55:06 by sudas            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdarg.h>
+# include <stdio.h>
 
 typedef unsigned int	t_uint;
 typedef unsigned int	t_bool;
 
-typedef struct	s_fmt
+typedef struct s_fmt
 {
 	int		num;
 	t_uint	unum;
@@ -18,14 +30,14 @@ typedef struct	s_fmt
 	void	*ptr;
 }				t_fmt;
 
-typedef struct	s_str
+typedef struct s_str
 {
 	char	*str;
 	t_uint	len;
 	t_uint	size;
 }				t_str;
 
-typedef struct	s_fmt_specifier
+typedef struct s_fmt_specifier
 {
 	t_str	flag_dtls;
 	char	specifier;
@@ -41,7 +53,7 @@ void	ft_putptr_base(unsigned long nbr, char *base, unsigned int base_len);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
 int		ft_strlen(char *str);
-void 	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i);
+void	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i);
 void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap);
 void	print_nbr(int num, char fmt);
 void	print_ptr(void *ptr, char fmt);
