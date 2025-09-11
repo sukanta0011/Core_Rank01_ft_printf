@@ -51,11 +51,15 @@ void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap)
 		print_str(fmt_spcfr, var.str);
 	}
 	if (fmt_spcfr->specifier == 'd' || fmt_spcfr->specifier == 'i'
-		|| fmt_spcfr->specifier == 'u'
 		|| fmt_spcfr->specifier == 'x' || fmt_spcfr->specifier == 'X')
 	{
 		var.num = va_arg(ap, int);
-		print_nbr(var.num, fmt_spcfr->specifier);
+		print_nbr(fmt_spcfr, var.num, fmt_spcfr->specifier);
+	}
+	if (fmt_spcfr->specifier == 'u' )
+	{
+		var.num = va_arg(ap, int);
+		print_nbr(fmt_spcfr, var.num, fmt_spcfr->specifier);
 	}
 	if (fmt_spcfr->specifier == 'c')
 	{
@@ -65,6 +69,6 @@ void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap)
 	if (fmt_spcfr->specifier == 'p')
 	{
 		var.ptr = va_arg(ap, void *);
-		print_ptr(var.ptr, fmt_spcfr->specifier);
+		print_ptr(fmt_spcfr, var.ptr);
 	}
 }

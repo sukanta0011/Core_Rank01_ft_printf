@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	use_left_padding(t_fmt_specifier *fmt_spcfr, char pad)
+void	use_str_left_padding(t_fmt_specifier *fmt_spcfr, char pad)
 {
 	t_uint	len;
 	t_uint	width;
@@ -33,7 +33,7 @@ void	use_left_padding(t_fmt_specifier *fmt_spcfr, char pad)
 	ft_putstr_len(fmt_spcfr->var.str, len);
 }
 
-void	use_right_padding(t_fmt_specifier *fmt_spcfr, char pad)
+void	use_str_right_padding(t_fmt_specifier *fmt_spcfr, char pad)
 {
 	t_uint	len;
 	t_uint	width;
@@ -67,8 +67,8 @@ void	print_str(t_fmt_specifier *fmt_spcfr, char *str)
 	if (fmt_spcfr->flags)
 	{
 		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
-			use_right_padding(fmt_spcfr, ' ');
+			use_str_right_padding(fmt_spcfr, ' ');
 	}
 	else
-		use_left_padding(fmt_spcfr, ' ');
+		use_str_left_padding(fmt_spcfr, ' ');
 }

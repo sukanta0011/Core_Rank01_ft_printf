@@ -5,10 +5,11 @@ FLAGS = -Wall -Wextra -Werror
 CC = cc
 
 MY_SRCS = main.c\
-		write_nbr1.c\
-		write_str1.c\
-		write_adds1.c\
-		utils.c\
+		write_nbr.c\
+		write_str.c\
+		write_adds.c\
+		utils1.c\
+		utils2.c\
 		parser.c
 
 SRCS = $(addprefix $(SRC_DIR)/, $(MY_SRCS))

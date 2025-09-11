@@ -18,8 +18,9 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-typedef unsigned int	t_uint;
-typedef unsigned int	t_bool;
+typedef unsigned int		t_uint;
+typedef unsigned int		t_bool;
+typedef unsigned long long	t_ullint;
 
 typedef struct s_fmt
 {
@@ -48,19 +49,35 @@ typedef struct s_fmt_specifier
 	t_str	var;
 }				t_fmt_specifier;
 
-void	ft_putnbr_base(int nbr, char *base, unsigned int base_len);
-void	ft_putptr_base(unsigned long nbr, char *base, unsigned int base_len);
 void	ft_putstr(char *str);
 void	ft_putchar(char c);
 int		ft_strlen(char *str);
 void	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i);
 void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap);
-void	print_nbr(int num, char fmt);
-void	print_ptr(void *ptr, char fmt);
-void	append_char(t_str *str_dtls, char c);
-char	*ft_strdup(char *src, char *dst);
-void	print_str(t_fmt_specifier *fmt_spcfr, char *str);
 int		char_in_str(char c, char *str);
 void	ft_putstr_len(char *str, t_uint len);
+
+// =========== write_add ================ //
+void	ft_putptr_base(t_fmt_specifier *fmt_spcfr, t_ullint nbr,
+		char *base, t_uint base_len);
+void	print_ptr(t_fmt_specifier *fmt_spcfr, void *ptr);
+
+// =========== write_nbr ================ //
+void	ft_putnbr_base(t_fmt_specifier *fmt_spcfr, int nbr,
+		char *base, t_uint base_len);
+void	print_nbr(t_fmt_specifier *fmt_spcfr, int num, char fmt);
+void	use_num_left_padding(t_fmt_specifier *fmt_spcfr, char pad,
+		t_uint hx_len, char *hx_str);
+void	use_num_right_padding(t_fmt_specifier *fmt_spcfr, char pad,
+		t_uint hx_len, char *hx_str);
+
+// =========== write_str ================ //
+void	use_str_left_padding(t_fmt_specifier *fmt_spcfr, char pad);
+void	use_str_right_padding(t_fmt_specifier *fmt_spcfr, char pad);
+void	print_str(t_fmt_specifier *fmt_spcfr, char *str);
+
+// =========== utils2 ================ //
+char	*ft_strdup(char *src, char *dst);
+void	append_char(t_str *str_dtls, char c);
 
 #endif
