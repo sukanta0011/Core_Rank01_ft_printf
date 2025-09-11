@@ -10,14 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "ft_printf.h"
+#include "ft_printf.h"
 
-// int valide_flags_comb(t_fmt_specifier fmt_spcfr)
-// {
-// 	char fmt;
-// 	char *flags;
+int	validate_str_flags(char *fmt_spcfr)
+{
+	
+}
 
-// 	fmt = fmt_spcfr->specifier;
-// 	flags = fmt_spcfr->flag_dtls.str;
-// 	if (c == 'c')
-// }
+int valide_flags_comb(t_fmt_specifier *fmt_spcfr)
+{
+	char fmt;
+	char *flags;
+
+	fmt = fmt_spcfr->specifier;
+	flags = fmt_spcfr->flag_dtls.str;
+	if (fmt == 'c' || fmt == 's')
+		validate_str_flags(flags);
+}

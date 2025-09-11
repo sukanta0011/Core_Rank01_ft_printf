@@ -74,6 +74,8 @@ void	print_unum_with_paddings(t_fmt_specifier *fmt_spcfr, int hx_len,
 // =========== num_paddings ================ //
 void	use_num_left_padding(t_fmt_specifier *fmt_spcfr, char pad,
 			t_uint hx_len, char *hx_str);
+void	extend_num_left_padding(t_fmt_specifier *fmt_spcfr, char pad,
+			t_uint str_len, char *str);
 void	use_num_right_padding(t_fmt_specifier *fmt_spcfr, char pad,
 			t_uint hx_len, char *hx_str);
 
