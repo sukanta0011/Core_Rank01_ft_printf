@@ -65,22 +65,27 @@ void	print_ptr(t_fmt_specifier *fmt_spcfr, void *ptr);
 void	ft_putnbr_base(t_fmt_specifier *fmt_spcfr, int nbr,
 		char *base, t_uint base_len);
 void	print_nbr(t_fmt_specifier *fmt_spcfr, int num, char fmt);
+void	ft_putunbr_base(t_fmt_specifier *fmt_spcfr, t_uint nbr,
+		char *base, t_uint base_len);
+void	print_unbr(t_fmt_specifier *fmt_spcfr, t_uint num, char fmt);
+void	print_unum_with_paddings(t_fmt_specifier *fmt_spcfr, int hx_len, char *hx_str);
+
+// =========== num_paddings ================ //
 void	use_num_left_padding(t_fmt_specifier *fmt_spcfr, char pad,
 		t_uint hx_len, char *hx_str);
 void	use_num_right_padding(t_fmt_specifier *fmt_spcfr, char pad,
 		t_uint hx_len, char *hx_str);
-void	ft_putunbr_base(t_fmt_specifier *fmt_spcfr, t_uint nbr,
-		char *base, t_uint base_len);
-void	print_unbr(t_fmt_specifier *fmt_spcfr, t_uint num, char fmt);
 
 // =========== write_str ================ //
 void	use_str_left_padding(t_fmt_specifier *fmt_spcfr, char pad);
 void	use_str_right_padding(t_fmt_specifier *fmt_spcfr, char pad);
 void	print_str(t_fmt_specifier *fmt_spcfr, char *str);
 void	print_char(t_fmt_specifier *fmt_spcfr, int c);
+void	print_str_with_paddings(t_fmt_specifier *fmt_spcfr);
 
 // =========== utils2 ================ //
 char	*ft_strdup(char *src, char *dst);
 void	append_char(t_str *str_dtls, char c);
+void	print_padding_char(char pad, t_uint len);
 
 #endif

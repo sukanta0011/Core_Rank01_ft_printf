@@ -12,6 +12,18 @@
 
 #include "ft_printf.h"
 
+void	print_padding_char(char pad, t_uint len)
+{
+	t_uint	i;
+
+	i = 0;
+	while ((int)i < (int)len)
+	{
+		ft_putchar(pad);
+		i++;
+	}
+}
+
 char	*ft_strdup(char *src, char *dst)
 {
 	t_uint	i;

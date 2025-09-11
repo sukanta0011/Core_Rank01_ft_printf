@@ -17,19 +17,13 @@ void	use_str_left_padding(t_fmt_specifier *fmt_spcfr, char pad)
 	t_uint	len;
 	t_uint	width;
 	t_uint	precision;
-	t_uint	i;
 
 	len = fmt_spcfr->var.len;
 	width = fmt_spcfr->width;
 	precision = fmt_spcfr->precision;
-	i = 0;
 	if (fmt_spcfr->dot && precision < len)
 		len = precision;
-	while (i < (width - len))
-	{
-		ft_putchar(pad);
-		i++;
-	}
+	print_padding_char (pad, (width - len));
 	ft_putstr_len(fmt_spcfr->var.str, len);
 }
 
@@ -38,20 +32,25 @@ void	use_str_right_padding(t_fmt_specifier *fmt_spcfr, char pad)
 	t_uint	len;
 	t_uint	width;
 	t_uint	precision;
-	t_uint	i;
 
 	len = fmt_spcfr->var.len;
 	width = fmt_spcfr->width;
 	precision = fmt_spcfr->precision;
-	i = 0;
 	if (fmt_spcfr->dot && precision < len)
 		len = precision;
 	ft_putstr_len(fmt_spcfr->var.str, len);
-	while (i < (width - len))
+	print_padding_char (pad, (width - len));
+}
+
+void	print_str_with_paddings(t_fmt_specifier *fmt_spcfr)
+{
+	if (fmt_spcfr->flags)
 	{
-		ft_putchar(pad);
-		i++;
+		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
+			use_str_right_padding(fmt_spcfr, ' ');
 	}
+	else
+		use_str_left_padding(fmt_spcfr, ' ');
 }
 
 void	print_str(t_fmt_specifier *fmt_spcfr, char *str)
@@ -64,23 +63,11 @@ void	print_str(t_fmt_specifier *fmt_spcfr, char *str)
 		append_char(&(fmt_spcfr->var), str[i]);
 		i++;
 	}
-	if (fmt_spcfr->flags)
-	{
-		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
-			use_str_right_padding(fmt_spcfr, ' ');
-	}
-	else
-		use_str_left_padding(fmt_spcfr, ' ');
+	print_str_with_paddings(fmt_spcfr);
 }
 
 void	print_char(t_fmt_specifier *fmt_spcfr, int c)
 {
 	append_char(&(fmt_spcfr->var), c);
-	if (fmt_spcfr->flags)
-	{
-		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
-			use_str_right_padding(fmt_spcfr, ' ');
-	}
-	else
-		use_str_left_padding(fmt_spcfr, ' ');
+	print_str_with_paddings(fmt_spcfr);
 }
