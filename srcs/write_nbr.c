@@ -21,7 +21,6 @@ void	ft_putnbr_base(t_fmt_specifier *fmt_spcfr, int nbr,
 	if (nbr < 0)
 	{
 		new_nb = -nbr;
-		append_char(&(fmt_spcfr->var), '-');
 	}
 	else
 		new_nb = nbr;
@@ -34,23 +33,28 @@ void	ft_putnbr_base(t_fmt_specifier *fmt_spcfr, int nbr,
 void	print_nbr(t_fmt_specifier *fmt_spcfr, int num, char fmt)
 {
 	char	*dec_base;
-	t_uint	hx_len;
-	char	*hx_str;
+	t_uint	sign_len;
+	char	*sign_str;
 
-	hx_len = 0;
-	hx_str = "";
+	sign_len = 0;
+	sign_str = "";
+	if (num < 0)
+	{
+		sign_len = 1;
+		sign_str = "-";
+	}
 	dec_base = "0123456789";
 	if (fmt == 'd' || fmt == 'i')
 		ft_putnbr_base(fmt_spcfr, num, dec_base, ft_strlen(dec_base));
 	if (fmt_spcfr->flags)
 	{
 		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
-			use_num_right_padding(fmt_spcfr, ' ', hx_len, hx_str);
+			use_num_right_padding(fmt_spcfr, ' ', sign_len, sign_str);
 		else if (char_in_str('0', fmt_spcfr->flag_dtls.str))
-			use_num_left_padding(fmt_spcfr, '0', hx_len, hx_str);
+			use_num_left_padding(fmt_spcfr, '0', sign_len, sign_str);
 	}
 	else
-		use_num_left_padding(fmt_spcfr, ' ', hx_len, hx_str);
+		use_num_left_padding(fmt_spcfr, ' ', sign_len, sign_str);
 }
 
 void	ft_putunbr_base(t_fmt_specifier *fmt_spcfr, t_uint nbr,
@@ -64,7 +68,8 @@ void	ft_putunbr_base(t_fmt_specifier *fmt_spcfr, t_uint nbr,
 	append_char(&(fmt_spcfr->var), base[mod]);
 }
 
-void	print_unum_with_paddings(t_fmt_specifier *fmt_spcfr, int hx_len, char *hx_str)
+void	print_unum_with_paddings(t_fmt_specifier *fmt_spcfr,
+			int hx_len, char *hx_str)
 {
 	if (fmt_spcfr->flags)
 	{

@@ -45,4 +45,3 @@ void	print_ptr(t_fmt_specifier *fmt_spcfr, void *ptr)
 	else
 		use_num_left_padding(fmt_spcfr, ' ', hx_len, hx_str);
 }
-

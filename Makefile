@@ -35,7 +35,7 @@ fclean: clean
 
 re: fclean all
 
-out: all
+output: all
 	$(addprefix ./, $(NAME))
 
 leak: all
