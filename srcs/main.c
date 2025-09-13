@@ -75,8 +75,8 @@ int	main(void)
 
 	a = 1234567890;
 	printf("-----------printf--------------\n");
-	printf("%%, %-10c, %10.8s, % 20.15i, %-#.20x, %-20p\n", 'c', "World", a, a, &a);
+	printf("%%, %-10c, %10.8s, %+20.15i, %#5.15x, %20p\n", 'c', "World", a, a, &a);
 	printf("----------ft_printf--------------\n");
-	ft_printf("%%, %-10c, %10.8s, % 20.15i, %-#.20x, %-20p\n", 'c', "World", a, a, &a);
+	ft_printf("%%, %-10c, %10.8s, %+20.15i, %-#.20x, %20p\n", 'c', "World", a, a, &a);
 	return (0);
 }

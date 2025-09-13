@@ -31,10 +31,33 @@ int	validate_num_flags(char *flags, char fmt, t_bool dot)
 	{
 		if (char_in_str('#', flags) ||char_in_str(' ', flags)
 			|| char_in_str('+', flags))
-		return (0);
+			return (0);
 	}
 	if (fmt == 'i' && dot)
 		return (0);	
+	return (1);
+}
+
+int	validate_ptr_flags(char *flags, char fmt, t_bool dot)
+{
+	if (fmt == 'p' || fmt == 'i')
+	{
+		if (char_in_str('#', flags) || char_in_str(' ', flags)
+			|| char_in_str('+', flags) || char_in_str('0', flags) || dot)
+			return (0);
+	}
+	return (1);
+}
+
+int	validate_unum_flags(char *flags, char fmt, t_bool dot)
+{
+	if (fmt == 'u' || fmt == 'x' || fmt == 'X')
+	{
+		if (char_in_str('+', flags) || char_in_str(' ', flags))
+			return (0);
+		if (char_in_str('0', flags) && dot)
+			return (0);
+	}
 	return (1);
 }
 
@@ -52,6 +75,16 @@ int	validate_flags_comb(t_fmt_specifier *fmt_spcfr)
 		if (fmt_spcfr->flag_dtls.str)
 			return (validate_str_flags(flags, fmt, dot));
 	}
+	// if (fmt == 'p')
+	// {
+	// 	if (fmt_spcfr->flag_dtls.str)
+	// 		return (validate_str_flags(flags, fmt, dot));
+	// }
+	// if (fmt == 'u' || fmt == 'x' || fmt == 'X')
+	// {
+	// 	if (fmt_spcfr->flag_dtls.str)
+	// 		return (validate_str_flags(flags, fmt, dot));
+	// }
 	// if (fmt == 'd' || fmt == 'i')
 	// 	return (validate_num_flags(flags, fmt, dot));
 	return (1);
