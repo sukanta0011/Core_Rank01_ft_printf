@@ -55,6 +55,8 @@ void	parse_specifier(t_fmt_specifier *fmt_spcfr, char *fmt, t_uint *i);
 void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap);
 int		char_in_str(char c, char *str);
 void	ft_putstr_len(char *str, t_uint len);
+int		validate_str_flags(char *flags, char fmt, t_bool dot);
+int 	validate_flags_comb(t_fmt_specifier *fmt_spcfr);
 
 // =========== write_add ================ //
 void	ft_putptr_base(t_fmt_specifier *fmt_spcfr, t_ullint nbr,
@@ -87,7 +89,7 @@ void	print_char(t_fmt_specifier *fmt_spcfr, int c);
 void	print_str_with_paddings(t_fmt_specifier *fmt_spcfr);
 
 // =========== utils2 ================ //
-char	*ft_strdup(char *src, char *dst);
+char	*ft_strcpy(char *src, char *dst);
 void	append_char(t_str *str_dtls, char c);
 void	print_padding_char(char pad, t_uint len);
 

@@ -6,6 +6,7 @@ CC = cc
 
 MY_SRCS = main.c\
 		write_nbr.c\
+		validator.c\
 		num_paddings.c\
 		write_str.c\
 		write_adds.c\

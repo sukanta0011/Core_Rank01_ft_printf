@@ -32,7 +32,6 @@ void	ft_putnbr_base(t_fmt_specifier *fmt_spcfr, int nbr,
 
 void	print_nbr(t_fmt_specifier *fmt_spcfr, int num, char fmt)
 {
-	char	*dec_base;
 	t_uint	sign_len;
 	char	*sign_str;
 
@@ -43,15 +42,27 @@ void	print_nbr(t_fmt_specifier *fmt_spcfr, int num, char fmt)
 		sign_len = 1;
 		sign_str = "-";
 	}
-	dec_base = "0123456789";
 	if (fmt == 'd' || fmt == 'i')
-		ft_putnbr_base(fmt_spcfr, num, dec_base, ft_strlen(dec_base));
+		ft_putnbr_base(fmt_spcfr, num, "0123456789", ft_strlen("0123456789"));
 	if (fmt_spcfr->flags)
 	{
+		if (char_in_str('+', fmt_spcfr->flag_dtls.str))
+		{	
+			sign_len = 1;
+			sign_str = "+";
+		}
+		if (char_in_str(' ', fmt_spcfr->flag_dtls.str))
+		{	
+			sign_len = 1;
+			sign_str = " ";
+		}
 		if (char_in_str('-', fmt_spcfr->flag_dtls.str))
 			use_num_right_padding(fmt_spcfr, ' ', sign_len, sign_str);
 		else if (char_in_str('0', fmt_spcfr->flag_dtls.str))
 			use_num_left_padding(fmt_spcfr, '0', sign_len, sign_str);
+		else if (char_in_str('+', fmt_spcfr->flag_dtls.str)
+			|| char_in_str(' ', fmt_spcfr->flag_dtls.str))
+			use_num_left_padding(fmt_spcfr, ' ', sign_len, sign_str);
 	}
 	else
 		use_num_left_padding(fmt_spcfr, ' ', sign_len, sign_str);

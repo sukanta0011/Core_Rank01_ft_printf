@@ -26,7 +26,7 @@ void	use_num_left_padding(t_fmt_specifier *fmt_spcfr, char pad,
 	{
 		print_padding_char(pad, (width - precision - str_len));
 		ft_putstr(str);
-		print_padding_char(pad, (precision - len));
+		print_padding_char('0', (precision - len));
 	}
 	else if (fmt_spcfr->dot && precision > len && width < precision)
 	{

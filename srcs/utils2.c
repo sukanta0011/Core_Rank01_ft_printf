@@ -24,7 +24,7 @@ void	print_padding_char(char pad, t_uint len)
 	}
 }
 
-char	*ft_strdup(char *src, char *dst)
+char	*ft_strcpy(char *src, char *dst)
 {
 	t_uint	i;
 
@@ -44,14 +44,14 @@ void	append_char(t_str *str_dtls, char c)
 
 	if (!str_dtls->str)
 		str_dtls->str = malloc(str_dtls->size);
-	else if (str_dtls->len + 1 > str_dtls->size)
+	else if (str_dtls->len + 2 > str_dtls->size)
 	{
 		temp = malloc(str_dtls->size);
-		temp = ft_strdup(str_dtls->str, temp);
+		temp = ft_strcpy(str_dtls->str, temp);
 		free(str_dtls->str);
 		str_dtls->size *= 2;
 		str_dtls->str = malloc(str_dtls->size);
-		str_dtls->str = ft_strdup(temp, str_dtls->str);
+		str_dtls->str = ft_strcpy(temp, str_dtls->str);
 		free(temp);
 	}
 	str_dtls->str[str_dtls->len++] = c;
