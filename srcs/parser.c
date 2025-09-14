@@ -75,19 +75,14 @@ void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap)
 	char	fmt;
 
 	fmt = fmt_spcfr->specifier;
-	if (validate_flags_comb(fmt_spcfr))
+	if (fmt == 's' || fmt == 'c')
+		parse_str(fmt_spcfr, &var, fmt, ap);
+	if (fmt == 'd' || fmt == 'i'
+		|| fmt == 'u' || fmt == 'x' || fmt == 'X')
+		parse_num(fmt_spcfr, &var, fmt, ap);
+	if (fmt == 'p')
 	{
-		if (fmt == 's' || fmt == 'c')
-			parse_str(fmt_spcfr, &var, fmt, ap);
-		if (fmt == 'd' || fmt == 'i'
-			|| fmt == 'u' || fmt == 'x' || fmt == 'X')
-			parse_num(fmt_spcfr, &var, fmt, ap);
-		if (fmt == 'p')
-		{
-			var.ptr = va_arg(ap, void *);
-			print_ptr(fmt_spcfr, var.ptr);
-		}
+		var.ptr = va_arg(ap, void *);
+		print_ptr(fmt_spcfr, var.ptr);
 	}
-	else
-		ft_putstr("Wrong Flag combination");
 }

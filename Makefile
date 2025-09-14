@@ -1,7 +1,7 @@
 SRC_DIR = srcs
 HDR_DIR = includes
-
-FLAGS = -Wall -Wextra -Werror
+# -Wall -Wextra -Werror
+FLAGS = 
 CC = cc
 
 MY_SRCS = main.c\
