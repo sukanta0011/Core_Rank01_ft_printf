@@ -85,4 +85,6 @@ void	parse_specifier_value(t_fmt_specifier *fmt_spcfr, va_list ap)
 		var.ptr = va_arg(ap, void *);
 		print_ptr(fmt_spcfr, var.ptr);
 	}
+	if (fmt == '%')
+		write(1, "%", 1);
 }

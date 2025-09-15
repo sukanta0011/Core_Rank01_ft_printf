@@ -51,15 +51,10 @@ int	ft_printf(const char *fmt, ...)
 		if (fmt[i] == '%')
 		{
 			i++;
-			if (fmt[i] == '%')
-				write (1, "%", 1);
-			else
-			{
-				fmt_spcfr = initialize_mem(fmt_spcfr);
-				parse_specifier(fmt_spcfr, (char *)fmt, &i);
-				parse_specifier_value(fmt_spcfr, ap);
-				free_memory(fmt_spcfr);
-			}
+			fmt_spcfr = initialize_mem(fmt_spcfr);
+			parse_specifier(fmt_spcfr, (char *)fmt, &i);
+			parse_specifier_value(fmt_spcfr, ap);
+			free_memory(fmt_spcfr);
 		}
 		else
 			ft_putchar(fmt[i]);
@@ -77,6 +72,6 @@ int	main(void)
 	printf("-----------printf--------------\n");
 	printf("%+10%, %-10c, %10.8s, %---+00020.15i, %+.20d, %20p\n", 'c', "World", a, a, &a);
 	printf("----------ft_printf------------\n");
-	ft_printf("%%, %-10c, %10.8s, %---+00020.15i, %+.20d, %20p\n", 'c', "World", a, a, &a);
+	ft_printf("%+10%, %-10c, %10.8s, %---+00020.15i, %+.20d, %20p\n", 'c', "World", a, a, &a);
 	return (0);
 }
